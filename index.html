@@ -83,7 +83,7 @@
     }
     .hero-brand-name span { color: var(--turquesa); }
 
-    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-subtitulo); font-size: 16px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--turquesa); margin-bottom: 24px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-subtitulo); font-size: 15px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--turquesa); margin-bottom: 24px; }
     .hero-eyebrow::before { content: ''; display: inline-block; width: 32px; height: 1.5px; background: var(--turquesa); }
     .hero-title { font-family: var(--font-titulo); font-size: clamp(48px, 7vw, 88px); line-height: 0.95; letter-spacing: -0.03em; color: var(--blanco); margin-bottom: 28px; }
     .hero-title .accent { color: var(--turquesa); }
@@ -749,24 +749,26 @@ SOBRE SIN ETIQUETAS:
 - Los 4 pilares: Vulnerabilidad, Humanidad real, Transformación, Sin filtros
 
 SOBRE FITNESS EMOCIONAL:
-- Metodología de la Asociación Civil Vida Interior
-- Propósito: Reducir el sufrimiento emocional evitable en el Perú
-- 3 Ejes: 1) Historias que despiertan (Sin Etiquetas - activo), 2) Puentes para el dolor (próximamente), 3) Multiplicadores de bienestar (próximamente)
-- Propiedad intelectual registrada
+- Es la metodología y visión que inspira y da propósito a Sin Etiquetas
+- Propósito: reducir el sufrimiento emocional evitable en el Perú
+- Sin Etiquetas es la primera expresión pública de esta visión — a través de historias reales que generan conciencia emocional
+- IMPORTANTE: No menciones ejes, programas, asociación civil, metodología detallada, ni ningún servicio específico de Fitness Emocional. Esa información no está disponible al público todavía.
 
 COLABORACIÓN Y PATROCINIO:
-- Sponsor de episodio: mención integrada al inicio/final
+- Sponsor de episodio: mención integrada al inicio/final del episodio
 - Segmento patrocinado: bloque dentro del episodio
 - Colaboración de contenido: co-creación de episodios especiales
-- Participación como invitado: personas con historia real
+- Participación como invitado: personas con historia real que quieran compartirla
 - Contacto para colaboraciones: contacto@sinetiquetas.org.pe
 
 INSTRUCCIONES:
 - Responde siempre en español
 - Sé cálido, empático y cercano — refleja los valores del podcast
 - Respuestas concisas (máximo 3-4 párrafos)
-- Si alguien quiere colaborar, pídeles nombre, empresa/proyecto y tipo de colaboración, luego indica que se contacten a contacto@sinetiquetas.org.pe
-- No inventes información que no esté en este contexto`;
+- Si alguien quiere colaborar, pídeles nombre, empresa/proyecto y tipo de colaboración, luego indícales que escriban a contacto@sinetiquetas.org.pe
+- Si preguntan por Fitness Emocional, explica el propósito general sin entrar en detalles de programas, ejes ni metodología
+- No inventes información que no esté en este contexto
+- Nunca menciones: 8R, Asociación Civil, Eje 2, Eje 3, programas de formación, contención, ni liderazgo humanista`;
 
     // ── NAV ──
     window.addEventListener('scroll', () => {
@@ -844,12 +846,14 @@ INSTRUCCIONES:
       const wrap = track.parentElement;
       const thumbW = (wrap.offsetWidth - (VISIBLE - 1) * 12) / VISIBLE;
       track.style.transform = `translateX(-${carOffset * (thumbW + 12)}px)`;
-      document.getElementById('carPrev').style.opacity = carOffset === 0 ? '0.3' : '1';
-      document.getElementById('carNext').style.opacity = carOffset >= videos.length - VISIBLE ? '0.3' : '1';
+      document.getElementById('carPrev').style.opacity = '1';
+      document.getElementById('carNext').style.opacity = '1';
     }
 
     function carMove(dir) {
-      carOffset = Math.max(0, Math.min(videos.length - VISIBLE, carOffset + dir));
+      carOffset = carOffset + dir;
+      if (carOffset > videos.length - VISIBLE) carOffset = 0;
+      if (carOffset < 0) carOffset = videos.length - VISIBLE;
       updateTrack();
     }
 
