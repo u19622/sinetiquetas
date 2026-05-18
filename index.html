@@ -844,8 +844,154 @@
       line-height: 1.65;
     }
 
-    .ep-featured {
+    /* ── PLAYER + CARRUSEL ── */
+    .ep-player {
+      margin-bottom: 20px;
       border: 0.5px solid var(--gris1);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--negro2);
+    }
+
+    .ep-player-screen {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--negro3);
+      cursor: pointer;
+    }
+
+    .ep-player-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+    }
+
+    .ep-player-screen:hover img { transform: scale(1.02); }
+
+    .ep-player-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(10,10,10,0.35);
+      transition: background 0.3s;
+    }
+
+    .ep-player-screen:hover .ep-player-overlay { background: rgba(10,10,10,0.2); }
+
+    .ep-player-play {
+      width: 64px;
+      height: 64px;
+      background: var(--turquesa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--negro);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .ep-player-play svg { width: 24px; height: 24px; margin-left: 4px; }
+    .ep-player-screen:hover .ep-player-play { transform: scale(1.1); background: var(--lima); }
+
+    .ep-player-label {
+      font-family: var(--font-subtitulo);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .ep-player-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-top: 0.5px solid var(--gris1);
+    }
+
+    .carousel-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .carousel-btn {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--negro2);
+      border: 0.5px solid var(--gris2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--gris5);
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .carousel-btn:hover { border-color: var(--turquesa); color: var(--turquesa); background: rgba(92,225,230,0.06); }
+    .carousel-btn svg { width: 18px; height: 18px; }
+
+    .carousel-track-wrap {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 12px;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .car-thumb {
+      flex-shrink: 0;
+      width: calc(33.333% - 8px);
+      aspect-ratio: 16/9;
+      border-radius: 4px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+
+    .car-thumb:hover { transform: translateY(-2px); border-color: rgba(92,225,230,0.5); }
+    .car-thumb.active { border-color: var(--turquesa); }
+
+    .car-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.75);
+      transition: filter 0.2s;
+    }
+
+    .car-thumb:hover img, .car-thumb.active img { filter: brightness(1); }
+
+    .car-thumb-se {
+      position: absolute;
+      bottom: 4px;
+      right: 6px;
+      font-family: var(--font-titulo);
+      font-size: 14px;
+      color: rgba(255,255,255,0.1);
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* ── ESTILOS HEREDADOS QUE YA NO SE USAN ── */
+    .episodios-grid { display: none; }
       border-radius: 4px;
       overflow: hidden;
       background: var(--negro2);
@@ -1496,65 +1642,37 @@
         <a href="https://www.youtube.com/@SinEtiquetas-j6f" target="_blank" rel="noopener" class="ver-todos">Ver todos los episodios</a>
       </div>
 
-      <!-- Episodio destacado — embed YouTube -->
-      <div class="ep-featured reveal" style="margin-bottom: 32px;">
-        <div class="ep-featured-embed">
-          <iframe
-            src="https://www.youtube.com/embed?listType=user_uploads&list=SinEtiquetas-j6f&index=1"
-            title="Último episodio Sin Etiquetas"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
+      <!-- PLAYER PRINCIPAL -->
+      <div class="ep-player reveal" id="epPlayer">
+        <div class="ep-player-screen" id="epScreen">
+          <a href="https://www.youtube.com/watch?v=xnyIbasFKZw" target="_blank" rel="noopener" id="epLink">
+            <img src="https://img.youtube.com/vi/xnyIbasFKZw/maxresdefault.jpg" alt="Ver episodio en YouTube" id="epMainImg" loading="lazy">
+            <div class="ep-player-overlay">
+              <div class="ep-player-play">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div class="ep-player-label">Ver en YouTube</div>
+            </div>
+          </a>
         </div>
-        <div class="ep-featured-meta">
-          <span class="ep-num">Último episodio</span>
+        <div class="ep-player-meta">
+          <span class="ep-num" id="epMeta">Episodio · Sin Etiquetas</span>
           <div class="ep-dot"></div>
-          <span class="ep-plataforma">YouTube · 149 episodios publicados</span>
+          <span class="ep-plataforma">Haz clic para ver en YouTube</span>
         </div>
       </div>
 
-      <!-- Grid de episodios con miniaturas reales -->
-      <div class="episodios-grid">
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener" class="ep-card reveal reveal-delay-1">
-          <div class="ep-thumb">
-            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="Episodio Sin Etiquetas" loading="lazy">
-            <div class="ep-play-overlay">
-              <div class="ep-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-            </div>
-            <div class="ep-se-corner">SE</div>
-          </div>
-          <div class="ep-body">
-            <div class="ep-meta"><span class="ep-num">YouTube</span><div class="ep-dot"></div><span class="ep-plataforma">Ver episodio</span></div>
-            <div class="ep-titulo">Historias reales de vida</div>
-            <div class="ep-desc">Conversaciones auténticas sobre salud emocional, vulnerabilidad y transformación.</div>
-          </div>
-        </a>
-
-        <a href="https://open.spotify.com/show/7IcvqYzS5rzjVeGja3E3RD" target="_blank" rel="noopener" class="ep-card reveal reveal-delay-2">
-          <div class="ep-thumb" style="background: #0a1a0a; display:flex; align-items:center; justify-content:center;">
-            <svg style="width:48px;height:48px;fill:#1DB954;opacity:0.6;" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.28c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-.99-.18-1.11-.66-.12-.48.18-.99.66-1.11 4.38-1.32 9.78-.66 13.5 1.62.36.18.54.78.15 1.23zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
-            <div class="ep-se-corner">SE</div>
-          </div>
-          <div class="ep-body">
-            <div class="ep-meta"><span class="ep-num">Spotify</span><div class="ep-dot"></div><span class="ep-plataforma">Escuchar</span></div>
-            <div class="ep-titulo">Sin Etiquetas en Spotify</div>
-            <div class="ep-desc">Todos los episodios disponibles. Escúchanos donde quieras, cuando quieras.</div>
-          </div>
-        </a>
-
-        <a href="https://www.instagram.com/sinetiquetas.oficial/" target="_blank" rel="noopener" class="ep-card reveal reveal-delay-3">
-          <div class="ep-thumb" style="background: #1a0a12; display:flex; align-items:center; justify-content:center;">
-            <svg style="width:48px;height:48px;fill:#E1306C;opacity:0.6;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            <div class="ep-se-corner">SE</div>
-          </div>
-          <div class="ep-body">
-            <div class="ep-meta"><span class="ep-num">Instagram</span><div class="ep-dot"></div><span class="ep-plataforma">Seguir</span></div>
-            <div class="ep-titulo">Detrás de cámaras y más</div>
-            <div class="ep-desc">Clips, reflexiones y contenido exclusivo en Instagram.</div>
-          </div>
-        </a>
+      <!-- CARRUSEL DE MINIATURAS -->
+      <div class="carousel-wrap reveal">
+        <button class="carousel-btn carousel-prev" id="carPrev" onclick="carMove(-1)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="carousel-track-wrap">
+          <div class="carousel-track" id="carTrack"></div>
+        </div>
+        <button class="carousel-btn carousel-next" id="carNext" onclick="carMove(1)" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
       </div>
 
       <div class="episodios-cta reveal">
@@ -1706,32 +1824,28 @@
   </footer>
 
   <script>
-    // Nav scroll
+    // ── NAV SCROLL ──
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // Mobile nav
+    // ── MOBILE NAV ──
     function toggleNav() {
       document.getElementById('navLinks').classList.toggle('open');
     }
-
-    // Close mobile nav on link click
     document.querySelectorAll('.nav-links a').forEach(link => {
       link.addEventListener('click', () => {
         document.getElementById('navLinks').classList.remove('open');
       });
     });
 
-    // Hero background ken burns
-    const heroBg = document.getElementById('heroBg');
+    // ── HERO BG ──
     window.addEventListener('load', () => {
-      heroBg.classList.add('loaded');
+      document.getElementById('heroBg').classList.add('loaded');
     });
 
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
+    // ── REVEAL ON SCROLL ──
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1740,10 +1854,9 @@
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    reveals.forEach(el => observer.observe(el));
-
-    // Active nav link
+    // ── ACTIVE NAV ──
     const sections = document.querySelectorAll('section[id], div[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
     const sectionObserver = new IntersectionObserver((entries) => {
@@ -1758,8 +1871,92 @@
         }
       });
     }, { threshold: 0.4 });
-
     sections.forEach(s => sectionObserver.observe(s));
+
+    // ── CARRUSEL DE EPISODIOS ──
+    const videos = [
+      { id: 'xnyIbasFKZw' },
+      { id: 'iUWv-M3Y20o' },
+      { id: 'YydjnvflK3Q' },
+      { id: 'sRf4S0u17Qs' },
+      { id: 'kqEdd2UvD7I' },
+      { id: 'wagDXvZ9Dkk' },
+      { id: '86_pPTS5qFs' }
+    ];
+
+    let currentVideo = 0;
+    let carOffset = 0;
+    const visibleThumbs = 3;
+    const track = document.getElementById('carTrack');
+
+    function buildCarousel() {
+      track.innerHTML = '';
+      videos.forEach((v, i) => {
+        const thumb = document.createElement('div');
+        thumb.className = 'car-thumb' + (i === 0 ? ' active' : '');
+        thumb.dataset.index = i;
+        thumb.innerHTML = `
+          <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg" alt="Episodio Sin Etiquetas" loading="lazy">
+          <div class="car-thumb-se">SE</div>
+        `;
+        thumb.addEventListener('click', () => selectVideo(i));
+        track.appendChild(thumb);
+      });
+    }
+
+    function selectVideo(index) {
+      currentVideo = index;
+      const v = videos[index];
+
+      // Actualiza imagen principal
+      const img = document.getElementById('epMainImg');
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = `https://img.youtube.com/vi/${v.id}/maxresdefault.jpg`;
+        img.onload = () => { img.style.opacity = '1'; };
+        img.style.transition = 'opacity 0.3s ease';
+      }, 150);
+
+      // Actualiza link principal
+      document.getElementById('epLink').href = `https://www.youtube.com/watch?v=${v.id}`;
+      document.getElementById('epMeta').textContent = `Episodio ${index + 1} de ${videos.length} · Sin Etiquetas`;
+
+      // Actualiza activo en carrusel
+      document.querySelectorAll('.car-thumb').forEach((t, i) => {
+        t.classList.toggle('active', i === index);
+      });
+
+      // Mueve el track si el thumb está fuera de vista
+      if (index >= carOffset + visibleThumbs) {
+        carOffset = index - visibleThumbs + 1;
+      } else if (index < carOffset) {
+        carOffset = index;
+      }
+      updateTrack();
+    }
+
+    function updateTrack() {
+      const thumbWidth = track.parentElement.offsetWidth / visibleThumbs;
+      track.style.transform = `translateX(-${carOffset * (thumbWidth + 12)}px)`;
+      document.getElementById('carPrev').style.opacity = carOffset === 0 ? '0.3' : '1';
+      document.getElementById('carNext').style.opacity = carOffset >= videos.length - visibleThumbs ? '0.3' : '1';
+    }
+
+    function carMove(dir) {
+      carOffset = Math.max(0, Math.min(videos.length - visibleThumbs, carOffset + dir));
+      updateTrack();
+    }
+
+    buildCarousel();
+    updateTrack();
+
+    // Swipe en mobile
+    let touchStartX = 0;
+    track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    track.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) carMove(diff > 0 ? 1 : -1);
+    });
   </script>
 
 </body>
