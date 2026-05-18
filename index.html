@@ -254,6 +254,8 @@
 
     .agent-header { padding: 16px 20px; background: var(--negro3); border-bottom: 0.5px solid var(--gris1); display: flex; align-items: center; gap: 12px; }
     .agent-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--turquesa); }
+    .agent-avatar-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(92,225,230,0.15); border: 1.5px solid var(--turquesa); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--turquesa); }
+    .agent-avatar-icon svg { width: 18px; height: 18px; }
     .agent-header-info { flex: 1; }
     .agent-header-name { font-family: var(--font-titulo); font-size: 13px; color: var(--blanco); }
     .agent-header-status { font-family: var(--font-cuerpo); font-size: 11px; color: var(--turquesa); display: flex; align-items: center; gap: 4px; }
@@ -683,15 +685,17 @@
 
   <!-- AGENTE -->
   <button class="agent-btn" id="agentBtn" onclick="toggleAgent()" aria-label="Abrir asistente">
-    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
     <div class="agent-badge"></div>
   </button>
 
   <div class="agent-panel" id="agentPanel">
     <div class="agent-header">
-      <img src="/auria-4.png" alt="Auria Oblitas" class="agent-avatar">
+      <div class="agent-avatar-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </div>
       <div class="agent-header-info">
-        <div class="agent-header-name">Asistente Sin Etiquetas</div>
+        <div class="agent-header-name">Sin Etiquetas · Chat</div>
         <div class="agent-header-status">En línea</div>
       </div>
       <button class="agent-close" onclick="toggleAgent()">×</button>
@@ -810,7 +814,7 @@ INSTRUCCIONES:
       const img = document.getElementById('epMainImg');
       img.style.opacity = '0';
       setTimeout(() => {
-        img.src = v.thumb;
+        img.src = `https://img.youtube.com/vi/${v.id}/maxresdefault.jpg`;
         img.onload = () => { img.style.opacity = '1'; };
       }, 150);
       document.getElementById('epLink').href = `https://www.youtube.com/watch?v=${v.id}`;
