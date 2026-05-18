@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// API route FIRST — before static files
+// API route FIRST
 app.post('/api/chat', async (req, res) => {
   const { system, messages } = req.body;
   const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
@@ -49,9 +49,19 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-// Static files AFTER API routes
+// Explicit routes for legal pages
+app.get('/privacidad.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'privacidad.html'));
+});
+
+app.get('/terminos.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'terminos.html'));
+});
+
+// Static files
 app.use(express.static(path.join(__dirname)));
 
+// Catch-all — SPA fallback
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
