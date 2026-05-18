@@ -340,26 +340,20 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-family: var(--font-subtitulo);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gris3);
       animation: fadeUp 1s ease 1s forwards;
       opacity: 0;
     }
 
     .scroll-line {
       width: 1px;
-      height: 40px;
-      background: var(--gris3);
+      height: 48px;
+      background: var(--turquesa);
       animation: scrollLine 1.5s ease-in-out infinite;
     }
 
     @keyframes scrollLine {
-      0%, 100% { opacity: 0.3; }
-      50% { opacity: 1; }
+      0%, 100% { opacity: 0.2; transform: scaleY(0.6); }
+      50% { opacity: 0.8; transform: scaleY(1); }
     }
 
     /* ── SECTION BASE ── */
@@ -848,6 +842,46 @@
       font-size: 13px;
       color: var(--gris4);
       line-height: 1.65;
+    }
+
+    .ep-featured {
+      border: 0.5px solid var(--gris1);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--negro2);
+    }
+
+    .ep-featured-embed {
+      position: relative;
+      aspect-ratio: 16/9;
+      width: 100%;
+      background: var(--negro3);
+    }
+
+    .ep-featured-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .ep-featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-top: 0.5px solid var(--gris1);
+    }
+
+    .nosotros-foto {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center 20%;
+      border-radius: 4px;
+      filter: brightness(0.75) saturate(0.85);
+      display: block;
     }
 
     .episodios-cta {
@@ -1341,7 +1375,6 @@
 
     <div class="hero-scroll">
       <div class="scroll-line"></div>
-      Scroll
     </div>
   </section>
 
@@ -1463,65 +1496,63 @@
         <a href="https://www.youtube.com/@SinEtiquetas-j6f" target="_blank" rel="noopener" class="ver-todos">Ver todos los episodios</a>
       </div>
 
+      <!-- Episodio destacado — embed YouTube -->
+      <div class="ep-featured reveal" style="margin-bottom: 32px;">
+        <div class="ep-featured-embed">
+          <iframe
+            src="https://www.youtube.com/embed?listType=user_uploads&list=SinEtiquetas-j6f&index=1"
+            title="Último episodio Sin Etiquetas"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+        <div class="ep-featured-meta">
+          <span class="ep-num">Último episodio</span>
+          <div class="ep-dot"></div>
+          <span class="ep-plataforma">YouTube · 149 episodios publicados</span>
+        </div>
+      </div>
+
+      <!-- Grid de episodios con miniaturas reales -->
       <div class="episodios-grid">
-        <!-- Cards de episodios — las miniaturas se cargan desde YouTube via oEmbed -->
-        <a href="https://www.youtube.com/@SinEtiquetas-j6f" target="_blank" rel="noopener" class="ep-card reveal reveal-delay-1">
-          <div class="ep-thumb" style="background: #0f1f18;">
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener" class="ep-card reveal reveal-delay-1">
+          <div class="ep-thumb">
+            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="Episodio Sin Etiquetas" loading="lazy">
             <div class="ep-play-overlay">
-              <div class="ep-play-btn">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
+              <div class="ep-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             </div>
             <div class="ep-se-corner">SE</div>
           </div>
           <div class="ep-body">
-            <div class="ep-meta">
-              <span class="ep-num">Ep. más reciente</span>
-              <div class="ep-dot"></div>
-              <span class="ep-plataforma">YouTube</span>
-            </div>
-            <div class="ep-titulo">El episodio más reciente del canal</div>
-            <div class="ep-desc">Visita el canal para ver el último episodio publicado y toda la galería de historias.</div>
+            <div class="ep-meta"><span class="ep-num">YouTube</span><div class="ep-dot"></div><span class="ep-plataforma">Ver episodio</span></div>
+            <div class="ep-titulo">Historias reales de vida</div>
+            <div class="ep-desc">Conversaciones auténticas sobre salud emocional, vulnerabilidad y transformación.</div>
           </div>
         </a>
 
         <a href="https://open.spotify.com/show/7IcvqYzS5rzjVeGja3E3RD" target="_blank" rel="noopener" class="ep-card reveal reveal-delay-2">
-          <div class="ep-thumb" style="background: #0f0f1f;">
-            <div class="ep-play-overlay">
-              <div class="ep-play-btn">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-            </div>
+          <div class="ep-thumb" style="background: #0a1a0a; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:48px;height:48px;fill:#1DB954;opacity:0.6;" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.28c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-.99-.18-1.11-.66-.12-.48.18-.99.66-1.11 4.38-1.32 9.78-.66 13.5 1.62.36.18.54.78.15 1.23zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
             <div class="ep-se-corner">SE</div>
           </div>
           <div class="ep-body">
-            <div class="ep-meta">
-              <span class="ep-num">149 episodios</span>
-              <div class="ep-dot"></div>
-              <span class="ep-plataforma">Spotify</span>
-            </div>
-            <div class="ep-titulo">Escucha Sin Etiquetas en Spotify</div>
-            <div class="ep-desc">Todos los episodios disponibles en tu plataforma favorita. Suscríbete para no perderte ninguno.</div>
+            <div class="ep-meta"><span class="ep-num">Spotify</span><div class="ep-dot"></div><span class="ep-plataforma">Escuchar</span></div>
+            <div class="ep-titulo">Sin Etiquetas en Spotify</div>
+            <div class="ep-desc">Todos los episodios disponibles. Escúchanos donde quieras, cuando quieras.</div>
           </div>
         </a>
 
         <a href="https://www.instagram.com/sinetiquetas.oficial/" target="_blank" rel="noopener" class="ep-card reveal reveal-delay-3">
-          <div class="ep-thumb" style="background: #1f0f18;">
-            <div class="ep-play-overlay">
-              <div class="ep-play-btn">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-              </div>
-            </div>
+          <div class="ep-thumb" style="background: #1a0a12; display:flex; align-items:center; justify-content:center;">
+            <svg style="width:48px;height:48px;fill:#E1306C;opacity:0.6;" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             <div class="ep-se-corner">SE</div>
           </div>
           <div class="ep-body">
-            <div class="ep-meta">
-              <span class="ep-num">Contenido extra</span>
-              <div class="ep-dot"></div>
-              <span class="ep-plataforma">Instagram</span>
-            </div>
-            <div class="ep-titulo">Momentos y detrás de cámaras</div>
-            <div class="ep-desc">Clips, reflexiones y contenido exclusivo que no encontrarás en ningún otro lado.</div>
+            <div class="ep-meta"><span class="ep-num">Instagram</span><div class="ep-dot"></div><span class="ep-plataforma">Seguir</span></div>
+            <div class="ep-titulo">Detrás de cámaras y más</div>
+            <div class="ep-desc">Clips, reflexiones y contenido exclusivo en Instagram.</div>
           </div>
         </a>
       </div>
