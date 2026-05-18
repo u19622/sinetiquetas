@@ -305,41 +305,43 @@
 
 
     /* Auria en CTA */
-    .cta-band { overflow: hidden; }
-    .cta-auria-img {
-      position: absolute;
-      bottom: 0;
-      right: 5%;
-      height: 95%;
-      object-fit: contain;
-      object-position: bottom center;
-      z-index: 1;
-      filter: drop-shadow(0 0 40px rgba(10,10,10,0.12));
-      pointer-events: none;
-    }
+    .cta-band { overflow: hidden; padding: 0 !important; }
     .cta-container {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      min-height: 320px;
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      align-items: stretch;
+      min-height: 460px;
+      gap: 0;
     }
     .cta-text-block {
-      max-width: 520px;
+      padding: 64px 48px 64px 0;
       text-align: left;
-      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .cta-text-block h2 { text-align: left; }
     .cta-text-block p { text-align: left; margin-left: 0; margin-right: 0; }
     .cta-btns { justify-content: flex-start; }
+    .cta-auria-wrap {
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .cta-auria-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      mix-blend-mode: multiply;
+      display: block;
+    }
 
     @media (max-width: 900px) {
-      .cta-auria-img { right: -5%; height: 60%; opacity: 0.25; }
-      .cta-container { justify-content: center; min-height: auto; }
-      .cta-text-block { text-align: center; }
+      .cta-container { grid-template-columns: 1fr; }
+      .cta-auria-wrap { height: 320px; }
+      .cta-text-block { padding: 48px 0 24px; text-align: center; }
       .cta-text-block h2 { text-align: center; }
-      .cta-text-block p { text-align: center; }
       .cta-btns { justify-content: center; }
     }
 
@@ -625,6 +627,7 @@
 
   <!-- CTA -->
   <div class="cta-band" id="contacto">
+    <div class="section-se-watermark" style="bottom:-80px;left:50%;transform:translateX(-50%);color:rgba(10,10,10,0.06);">SE</div>
     <div class="container cta-container">
       <div class="cta-text-block">
         <h2>¿Tienes una historia<br>que contar?</h2>
@@ -635,7 +638,9 @@
           <a href="mailto:contacto@sinetiquetas.org.pe" class="btn-outline-dark">Contactar</a>
         </div>
       </div>
-      <div class="cta-auria-wrap"></div>
+      <div class="cta-auria-wrap">
+        <img src="/auria-turquesa.jpg" alt="Auria Oblitas" class="cta-auria-img">
+      </div>
     </div>
   </div>
 
