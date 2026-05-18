@@ -5,14 +5,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
 
+// API route FIRST — before static files
 app.post('/api/chat', async (req, res) => {
   const { system, messages } = req.body;
   const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
-  const YT_KEY = process.env.YOUTUBE_API_KEY;
+
+  console.log('Chat request received, messages:', messages?.length);
 
   if (!ANTHROPIC_KEY) {
+    console.error('ANTHROPIC_API_KEY not set');
     return res.status(500).json({ error: 'API key not configured' });
   }
 
@@ -32,12 +34,23 @@ app.post('/api/chat', async (req, res) => {
       })
     });
 
+    if (!response.ok) {
+      const errText = await response.text();
+      console.error('Anthropic API error:', response.status, errText);
+      return res.status(response.status).json({ error: errText });
+    }
+
     const data = await response.json();
+    console.log('Response OK, stop_reason:', data.stop_reason);
     res.json(data);
   } catch (error) {
-    res.status(500).json({ error: 'Error connecting to Claude API' });
+    console.error('Fetch error:', error.message);
+    res.status(500).json({ error: error.message });
   }
 });
+
+// Static files AFTER API routes
+app.use(express.static(path.join(__dirname)));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
@@ -45,4 +58,6 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Sin Etiquetas server running on port ${PORT}`);
+  console.log(`ANTHROPIC_API_KEY set: ${!!process.env.ANTHROPIC_API_KEY}`);
+  console.log(`YOUTUBE_API_KEY set: ${!!process.env.YOUTUBE_API_KEY}`);
 });

@@ -71,6 +71,18 @@
     }
 
     .hero-content { position: relative; z-index: 2; padding: 120px 48px 80px; max-width: 680px; opacity: 0; transform: translateY(30px); animation: fadeUp 0.9s ease 0.2s forwards; }
+    .hero-brand-name {
+      font-family: var(--font-titulo);
+      font-size: clamp(52px, 8vw, 110px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--blanco);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.1s forwards;
+    }
+    .hero-brand-name span { color: var(--turquesa); }
+
     .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-subtitulo); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--turquesa); margin-bottom: 24px; }
     .hero-eyebrow::before { content: ''; display: inline-block; width: 32px; height: 1.5px; background: var(--turquesa); }
     .hero-title { font-family: var(--font-titulo); font-size: clamp(48px, 7vw, 88px); line-height: 0.95; letter-spacing: -0.03em; color: var(--blanco); margin-bottom: 28px; }
@@ -393,6 +405,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-se-bg">SE</div>
     <div class="hero-content">
+      <div class="hero-brand-name">SIN<span>.</span>ETIQUETAS</div>
       <div class="hero-eyebrow">Tu podcast · Lima, Perú</div>
       <h1 class="hero-title">Lo que<br>normalmente<br>no se <span class="accent">dice.</span></h1>
       <p class="hero-desc">Historias de vida auténticas, poderosas y llenas de emoción. Aquí no hay filtros ni etiquetas — solo personas reales compartiendo sus experiencias.</p>
@@ -776,7 +789,7 @@ INSTRUCCIONES:
     async function loadVideos() {
       try {
         const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?key=${YT_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=12&type=video`
+          `https://www.googleapis.com/youtube/v3/search?key=${YT_API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=32&type=video`
         );
         const data = await res.json();
         if (!data.items || data.items.length === 0) throw new Error('No videos');
