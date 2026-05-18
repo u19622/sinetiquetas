@@ -305,17 +305,27 @@
 
 
     /* Auria en CTA */
-    .cta-band { overflow: hidden; padding: 0 !important; }
+    .cta-band {
+      overflow: hidden;
+      padding: 0 !important;
+      background: #0A0A0A !important;
+    }
+    .cta-band h2 { color: var(--blanco) !important; }
+    .cta-band p { color: rgba(255,255,255,0.6) !important; }
+    .cta-band .section-se-watermark { color: rgba(92,225,230,0.04); }
+    .btn-dark { background: var(--turquesa) !important; color: #0A0A0A !important; }
+    .btn-dark:hover { background: var(--lima) !important; }
+    .btn-outline-dark { color: var(--blanco) !important; border-color: rgba(255,255,255,0.25) !important; background: transparent !important; }
+    .btn-outline-dark:hover { border-color: var(--turquesa) !important; color: var(--turquesa) !important; background: transparent !important; }
     .cta-container {
       display: grid;
-      grid-template-columns: 1fr 440px;
+      grid-template-columns: 1fr 420px;
       align-items: stretch;
-      min-height: 460px;
+      min-height: 500px;
       gap: 0;
     }
     .cta-text-block {
       padding: 64px 48px 64px 0;
-      text-align: left;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -324,22 +334,29 @@
     .cta-text-block p { text-align: left; margin-left: 0; margin-right: 0; }
     .cta-btns { justify-content: flex-start; }
     .cta-auria-wrap {
+      position: relative;
       overflow: hidden;
-      display: flex;
-      align-items: flex-end;
+    }
+    .cta-auria-wrap::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 120px;
+      background: linear-gradient(to right, #0A0A0A, transparent);
+      z-index: 2;
     }
     .cta-auria-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      mix-blend-mode: multiply;
       display: block;
     }
 
     @media (max-width: 900px) {
       .cta-container { grid-template-columns: 1fr; }
-      .cta-auria-wrap { height: 320px; }
+      .cta-auria-wrap { height: 380px; }
+      .cta-auria-wrap::before { display: none; }
       .cta-text-block { padding: 48px 0 24px; text-align: center; }
       .cta-text-block h2 { text-align: center; }
       .cta-btns { justify-content: center; }
@@ -387,8 +404,8 @@
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#episodios">Episodios</a></li>
       <li><a href="#fitness">Fitness Emocional</a></li>
+      <li><a href="#episodios">Episodios</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#colabora">Colabora</a></li>
       <li><a href="#contacto">Contáctanos</a></li>
@@ -639,7 +656,7 @@
         </div>
       </div>
       <div class="cta-auria-wrap">
-        <img src="/auria-turquesa.jpg" alt="Auria Oblitas" class="cta-auria-img">
+        <img src="/auria-cta.png" alt="Auria Oblitas" class="cta-auria-img">
       </div>
     </div>
   </div>
@@ -666,8 +683,8 @@
           <div class="footer-col-title">Navegar</div>
           <ul class="footer-links">
             <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#episodios">Episodios</a></li>
             <li><a href="#fitness">Fitness Emocional</a></li>
+            <li><a href="#episodios">Episodios</a></li>
             <li><a href="#nosotros">Nosotros</a></li>
           </ul>
         </div>
