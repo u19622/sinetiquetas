@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -21,10 +20,13 @@ app.post('/api/chat', async (req, res) => {
   } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
+app.get('/privacidad.html', (req, res) => res.sendFile(path.join(__dirname, 'privacidad.html')));
+app.get('/terminos.html', (req, res) => res.sendFile(path.join(__dirname, 'terminos.html')));
 app.use(express.static(path.join(__dirname)));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 app.listen(PORT, () => {
-  console.log(`Sin Etiquetas server running on port ${PORT}`);
-  console.log(`ANTHROPIC_API_KEY set: ${!!process.env.ANTHROPIC_API_KEY}`);
-  console.log(`YOUTUBE_API_KEY set: ${!!process.env.YOUTUBE_API_KEY}`);
+  console.log('Sin Etiquetas server running on port ' + PORT);
+  console.log('ANTHROPIC_API_KEY set: ' + !!process.env.ANTHROPIC_API_KEY);
+  console.log('YOUTUBE_API_KEY set: ' + !!process.env.YOUTUBE_API_KEY);
 });
