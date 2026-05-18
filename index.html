@@ -309,36 +309,34 @@
     .cta-auria-img {
       position: absolute;
       bottom: 0;
-      left: 5%;
-      height: 92%;
+      right: 5%;
+      height: 95%;
       object-fit: contain;
-      object-position: bottom;
+      object-position: bottom center;
       z-index: 1;
-      filter: drop-shadow(0 0 40px rgba(10,10,10,0.15));
+      filter: drop-shadow(0 0 40px rgba(10,10,10,0.12));
       pointer-events: none;
     }
-    .cta-container { position: relative; z-index: 2; display: flex; justify-content: flex-end; }
-    .cta-text-block { max-width: 560px; text-align: left; padding-left: 0; }
+    .cta-container {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 320px;
+    }
+    .cta-text-block {
+      max-width: 520px;
+      text-align: left;
+      padding-left: 0;
+    }
     .cta-text-block h2 { text-align: left; }
     .cta-text-block p { text-align: left; margin-left: 0; margin-right: 0; }
     .cta-btns { justify-content: flex-start; }
 
-    /* SE_9 editorial en seccion nosotros como elemento decorativo */
-    .nosotros-se9 {
-      position: absolute;
-      top: -10px;
-      left: -30px;
-      width: 140px;
-      opacity: 0.12;
-      filter: grayscale(1) contrast(1.2);
-      pointer-events: none;
-      border-radius: 4px;
-      z-index: 0;
-    }
-
     @media (max-width: 900px) {
-      .cta-auria-img { left: -5%; height: 70%; opacity: 0.3; }
-      .cta-container { justify-content: center; }
+      .cta-auria-img { right: -5%; height: 60%; opacity: 0.25; }
+      .cta-container { justify-content: center; min-height: auto; }
       .cta-text-block { text-align: center; }
       .cta-text-block h2 { text-align: center; }
       .cta-text-block p { text-align: center; }
@@ -628,7 +626,6 @@
   <!-- CTA -->
   <div class="cta-band" id="contacto">
     <div class="section-se-watermark">SE</div>
-    <img src="/auria-10.png" alt="Auria Oblitas" class="cta-auria-img">
     <div class="container cta-container">
       <div class="cta-text-block">
         <h2>¿Tienes una historia<br>que contar?</h2>
@@ -638,6 +635,9 @@
           <a href="https://open.spotify.com/show/7IcvqYzS5rzjVeGja3E3RD" target="_blank" rel="noopener" class="btn-outline-dark">Escuchar en Spotify</a>
           <a href="mailto:contacto@sinetiquetas.org.pe" class="btn-outline-dark">Contactar</a>
         </div>
+      </div>
+      <div class="cta-auria-wrap">
+        <img src="/auria-10.png" alt="Auria Oblitas" class="cta-auria-img">
       </div>
     </div>
   </div>
