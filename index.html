@@ -102,7 +102,7 @@
 
     /* SECTION BASE */
     section { position: relative; overflow: hidden; }
-    .section-se-watermark { position: absolute; font-family: var(--font-titulo); font-size: 280px; color: rgba(92,225,230,0.03); user-select: none; pointer-events: none; line-height: 1; letter-spacing: -0.05em; }
+    .section-se-watermark { position: absolute; width: clamp(240px, 30vw, 420px); height: auto; opacity: 0.08; user-select: none; pointer-events: none; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
     .section-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-subtitulo); font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--turquesa); margin-bottom: 16px; }
     .section-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1.5px; background: var(--turquesa); }
@@ -459,7 +459,7 @@
 
   <!-- PILARES -->
   <section class="pilares" id="pilares">
-    <div class="section-se-watermark">SE</div>
+    <img src="/logo-transparent.png" class="section-se-watermark" alt="" aria-hidden="true">
     <div class="container">
       <div class="pilares-header reveal">
         <div class="section-eyebrow">Nuestra esencia</div>
@@ -497,7 +497,7 @@
 
   <!-- FITNESS EMOCIONAL -->
   <section class="fitness" id="fitness">
-    <div class="section-se-watermark">SE</div>
+    <img src="/logo-transparent.png" class="section-se-watermark" alt="" aria-hidden="true">
     <div class="container">
       <div class="fitness-inner">
         <div>
