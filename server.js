@@ -22,8 +22,14 @@ app.post('/api/chat', async (req, res) => {
 
 app.get('/privacidad.html', (req, res) => res.sendFile(path.join(__dirname, 'privacidad.html')));
 app.get('/terminos.html', (req, res) => res.sendFile(path.join(__dirname, 'terminos.html')));
+// Archivos internos del proyecto: no se sirven al público
+const PRIVADOS = ['/server.js', '/package.json', '/package-lock.json', '/railway.json', '/Procfile', '/README.md', '/.gitattributes', '/.gitignore'];
+app.use((req, res, next) => PRIVADOS.includes(req.path) ? res.status(404).sendFile(path.join(__dirname, '404.html')) : next());
+
 app.use(express.static(path.join(__dirname)));
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+
+// Cualquier ruta que no existe responde 404 real (antes devolvía la portada con 200)
+app.use((req, res) => res.status(404).sendFile(path.join(__dirname, '404.html')));
 
 app.listen(PORT, () => {
   console.log('Sin Etiquetas server running on port ' + PORT);
