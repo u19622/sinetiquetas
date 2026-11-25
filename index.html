@@ -742,7 +742,7 @@
       <button class="agent-suggestion" onclick="sendSuggestion('¿Cómo escucho el podcast?')">¿Dónde escucho?</button>
     </div>
     <div class="agent-input-wrap">
-      <textarea class="agent-input" id="agentInput" placeholder="Escribe tu pregunta..." rows="1" onkeydown="handleKey(event)"></textarea>
+      <textarea class="agent-input" id="agentInput" placeholder="Escribe tu pregunta..." rows="1" maxlength="1000" onkeydown="handleKey(event)"></textarea>
       <button class="agent-send" onclick="sendMessage()" aria-label="Enviar">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
@@ -754,38 +754,6 @@
     const YT_API_KEY = 'AIzaSyD5hPNmSV2OqcWFFKcir6rSGuQrTfNkBMs';
     const CHANNEL_ID = 'UCYjyuz51sXENwt1obeXHthA';
     const ANTHROPIC_KEY = '';
-
-    const SYSTEM_PROMPT = `Eres el asistente oficial de Sin Etiquetas, un podcast de salud emocional conducido por Auria Oblitas desde Lima, Perú. Tu rol es ayudar a los visitantes del sitio web de manera cálida, cercana y profesional.
-
-SOBRE SIN ETIQUETAS:
-- Podcast de historias de vida auténticas, poderosas y llenas de emoción
-- Conductora: Auria Oblitas — Economista y "Financiera con corazón"
-- 149+ episodios publicados
-- Disponible en: YouTube (@SinEtiquetas-j6f), Spotify, Instagram (@sinetiquetas.oficial), TikTok (@sin.etiquetas.oficial), Facebook, LinkedIn
-- Contacto: contacto@sinetiquetas.org.pe
-- Los 4 pilares: Vulnerabilidad, Humanidad real, Transformación, Sin filtros
-
-SOBRE FITNESS EMOCIONAL:
-- Es la metodología y visión que inspira y da propósito a Sin Etiquetas
-- Propósito: reducir el sufrimiento emocional evitable en el Perú
-- Sin Etiquetas es la primera expresión pública de esta visión — a través de historias reales que generan conciencia emocional
-- IMPORTANTE: No menciones ejes, programas, asociación civil, metodología detallada, ni ningún servicio específico de Fitness Emocional. Esa información no está disponible al público todavía.
-
-COLABORACIÓN Y PATROCINIO:
-- Sponsor de episodio: mención integrada al inicio/final del episodio
-- Segmento patrocinado: bloque dentro del episodio
-- Colaboración de contenido: co-creación de episodios especiales
-- Participación como invitado: personas con historia real que quieran compartirla
-- Contacto para colaboraciones: contacto@sinetiquetas.org.pe
-
-INSTRUCCIONES:
-- Responde siempre en español
-- Sé cálido, empático y cercano — refleja los valores del podcast
-- Respuestas concisas (máximo 3-4 párrafos)
-- Si alguien quiere colaborar, pídeles nombre, empresa/proyecto y tipo de colaboración, luego indícales que escriban a contacto@sinetiquetas.org.pe
-- Si preguntan por Fitness Emocional, explica el propósito general sin entrar en detalles de programas, ejes ni metodología
-- No inventes información que no esté en este contexto
-- Nunca menciones: 8R, Asociación Civil, Eje 2, Eje 3, programas de formación, contención, ni liderazgo humanista`;
 
     // ── NAV ──
     window.addEventListener('scroll', () => {
@@ -913,12 +881,13 @@ INSTRUCCIONES:
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            system: SYSTEM_PROMPT,
             messages: agentHistory
           })
         });
         const data = await res.json();
-        const reply = data.content?.[0]?.text || 'Lo siento, hubo un error. Escríbenos a contacto@sinetiquetas.org.pe';
+        const reply = res.status === 429
+          ? 'Recibimos muchos mensajes seguidos. Intenta de nuevo en unos minutos o escríbenos a contacto@sinetiquetas.org.pe'
+          : (data.content?.[0]?.text || 'Lo siento, hubo un error. Escríbenos a contacto@sinetiquetas.org.pe');
         typing.remove();
         addMsg(reply, 'agent');
         agentHistory.push({ role: 'assistant', content: reply });
@@ -932,7 +901,10 @@ INSTRUCCIONES:
       const msgs = document.getElementById('agentMessages');
       const div = document.createElement('div');
       div.className = `msg msg-${role}`;
-      div.innerHTML = `<div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>`;
+      // Escapa HTML y muestra **negritas** del modelo como negrita real
+      const safe = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+      div.innerHTML = `<div class="msg-bubble">${safe}</div>`;
       msgs.appendChild(div);
       msgs.scrollTop = msgs.scrollHeight;
       return div;
